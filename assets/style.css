@@ -436,6 +436,26 @@ button {
 .json-val-str { color: #34d399; }
 .json-val-num { color: #f59e0b; }
 
+/* Hero Stats Row (4-column responsive grid replacing terminal) */
+.hero-stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 10px;
+}
+
+@media (max-width: 900px) {
+  .hero-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 550px) {
+  .hero-stats-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Stats Mini Bento */
 .stats-bento-grid {
   display: grid;

@@ -16,7 +16,9 @@
   <meta property="og:url" content="https://ahviky02.github.io/" />
   <meta property="og:image" content="https://ahviky02.github.io/profile.jpg" />
   
-  <link rel="icon" type="image/png" href="favicon-32x32.png" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="favicon.png" />
   
   <!-- Ultra-Luxury Dark Theme CSS -->
   <link rel="stylesheet" href="assets/style.css" />
@@ -34,7 +36,7 @@
     <div class="container nav-flex-row">
       <a href="#" class="brand-wrapper">
         <div class="brand-img-wrap">
-          <img src="profile.jpg" alt="Avdhesh Kumar Yadav" class="brand-avatar" />
+          <img src="assets/brand-logo.png" alt="AY Monogram Logo" class="brand-avatar" style="border-radius: 10px; border: 1.5px solid var(--cyan-bright);" />
           <span class="brand-avatar-badge"></span>
         </div>
         <div>
@@ -94,51 +96,27 @@
         </a>
       </div>
 
-      <!-- Hero Bento Strip: Live Interactive Terminal + Key Metrics -->
-      <div class="hero-bento-strip">
-        <div class="terminal-card-mac">
-          <div class="terminal-mac-header">
-            <div class="mac-dots">
-              <span class="mac-dot red"></span>
-              <span class="mac-dot yellow"></span>
-              <span class="mac-dot green"></span>
-            </div>
-            <span class="terminal-title-tab">cholonaa-dispatch-api ~ bash</span>
-            <span class="brand-badge" style="font-size: 0.6rem;">LATENCY: 22ms</span>
-          </div>
-          <div class="terminal-code-body">
-            <div class="cmd-line">
-              <span class="prompt-symbol">avdhesh@prod:~$</span> curl -s https://api.cholonaa.io/v1/health-metrics
-            </div>
-            <div class="terminal-json-output">
-{
-  <span class="json-key">"ecosystem"</span>: <span class="json-val-str">"Cholonaa Ride-Hailing Platform"</span>,
-  <span class="json-key">"rider_app"</span>: <span class="json-val-str">"LIVE (Google Play Store)"</span>,
-  <span class="json-key">"driver_app"</span>: <span class="json-val-str">"STAGING (Final QA Phase)"</span>,
-  <span class="json-key">"surge_engine"</span>: <span class="json-val-str">"Operational (Zone-based Multipliers Active)"</span>,
-  <span class="json-key">"dispatch_latency"</span>: <span class="json-val-str">"sub-second"</span>,
-  <span class="json-key">"active_zones"</span>: <span class="json-val-num">14</span>
-}</div>
-          </div>
+      <!-- Hero Key Metrics Strip -->
+      <div class="hero-stats-row">
+        <div class="stat-bento-tile">
+          <div class="stat-huge-num">2<span>+</span></div>
+          <div class="stat-tile-label">Platforms Shipped</div>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Cholonaa Mobility &amp; Enterprise HRM</p>
         </div>
-
-        <div class="stats-bento-grid">
-          <div class="stat-bento-tile">
-            <div class="stat-huge-num">2<span>+</span></div>
-            <div class="stat-tile-label">Platforms Shipped</div>
-          </div>
-          <div class="stat-bento-tile">
-            <div class="stat-huge-num">500<span>+</span></div>
-            <div class="stat-tile-label">Enterprise Users</div>
-          </div>
-          <div class="stat-bento-tile">
-            <div class="stat-huge-num">98<span>%</span></div>
-            <div class="stat-tile-label">AI Face Accuracy</div>
-          </div>
-          <div class="stat-bento-tile">
-            <div class="stat-huge-num">&lt;2<span>s</span></div>
-            <div class="stat-tile-label">Financial ETL Engine</div>
-          </div>
+        <div class="stat-bento-tile">
+          <div class="stat-huge-num">500<span>+</span></div>
+          <div class="stat-tile-label">Enterprise Users</div>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Active corporate SaaS workforce</p>
+        </div>
+        <div class="stat-bento-tile">
+          <div class="stat-huge-num">98<span>%</span></div>
+          <div class="stat-tile-label">AI Face Accuracy</div>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">AWS Rekognition biometric check-in</p>
+        </div>
+        <div class="stat-bento-tile">
+          <div class="stat-huge-num">100<span>%</span></div>
+          <div class="stat-tile-label">Full Ownership</div>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">0-to-1 Architecture to App Launch</p>
         </div>
       </div>
     </div>
