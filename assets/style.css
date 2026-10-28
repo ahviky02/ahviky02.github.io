@@ -456,6 +456,174 @@ button {
   }
 }
 
+/* Hero Stack Pills */
+.hero-stack-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.stack-badge-glow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  color: #e2e8f0;
+  transition: var(--transition);
+}
+
+.stack-badge-glow.mern {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.35);
+  color: #38bdf8;
+}
+
+.stack-badge-glow.laravel {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.35);
+  color: #f87171;
+}
+
+.stack-badge-glow.flutter {
+  background: rgba(6, 182, 212, 0.12);
+  border-color: rgba(6, 182, 212, 0.35);
+  color: #22d3ee;
+}
+
+.stack-badge-glow.db {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.35);
+  color: #34d399;
+}
+
+.stack-badge-glow.cloud {
+  background: rgba(168, 85, 247, 0.12);
+  border-color: rgba(168, 85, 247, 0.35);
+  color: #c084fc;
+}
+
+/* Dedicated Dual-Stack Matrix Grid */
+.tech-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.stack-card-box {
+  background: rgba(13, 20, 36, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 32px 28px;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(14px);
+}
+
+.stack-card-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--cyan-bright), var(--emerald-bright));
+}
+
+.stack-card-box.laravel-box::before {
+  background: linear-gradient(90deg, #ef4444, #f59e0b);
+}
+
+.stack-card-box.mobile-box::before {
+  background: linear-gradient(90deg, #06b6d4, #6366f1);
+}
+
+.stack-card-box.cloud-box::before {
+  background: linear-gradient(90deg, #a855f7, #10b981);
+}
+
+.stack-card-box:hover {
+  transform: translateY(-4px);
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.85);
+  background: rgba(20, 30, 52, 0.85);
+}
+
+.stack-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.stack-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stack-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  border: 1px solid var(--border-subtle);
+}
+
+.stack-card-title {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.stack-card-sub {
+  font-size: 0.84rem;
+  color: var(--cyan-bright);
+  font-family: var(--font-mono);
+}
+
+.stack-tech-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stack-tech-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.92rem;
+  color: #cbd5e1;
+  line-height: 1.55;
+}
+
+.stack-bullet {
+  color: var(--emerald-bright);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+@media (max-width: 900px) {
+  .tech-matrix-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Stats Mini Bento */
 .stats-bento-grid {
   display: grid;
