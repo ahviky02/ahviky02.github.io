@@ -1,100 +1,174 @@
-// Portfolio Interactions & Direct Email Handler for Avdhesh Kumar Yadav
+// Ultra-Interactive Portfolio Features for Avdhesh Kumar Yadav
 
 document.addEventListener('DOMContentLoaded', () => {
   // Mobile Nav Toggle
-  const mobileToggle = document.getElementById('mobileToggle');
-  const navLinks = document.getElementById('navLinks');
-  if (mobileToggle && navLinks) {
-    mobileToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('mobile-open');
-      const isOpen = navLinks.classList.contains('mobile-open');
-      mobileToggle.innerHTML = isOpen ? '✕' : '☰';
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const navMenuLinks = document.getElementById('navMenuLinks');
+  if (mobileMenuBtn && navMenuLinks) {
+    mobileMenuBtn.addEventListener('click', () => {
+      const isVisible = navMenuLinks.style.display === 'flex';
+      navMenuLinks.style.display = isVisible ? 'none' : 'flex';
+      navMenuLinks.style.flexDirection = 'column';
+      navMenuLinks.style.position = 'absolute';
+      navMenuLinks.style.top = '65px';
+      navMenuLinks.style.left = '20px';
+      navMenuLinks.style.right = '20px';
+      navMenuLinks.style.background = '#090e1a';
+      navMenuLinks.style.padding = '20px';
+      navMenuLinks.style.borderRadius = '16px';
+      navMenuLinks.style.border = '1px solid rgba(255,255,255,0.1)';
+      mobileMenuBtn.innerHTML = isVisible ? '☰' : '✕';
     });
-    
-    // Close nav when clicking a link
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('mobile-open');
-        mobileToggle.innerHTML = '☰';
+
+    navMenuLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          navMenuLinks.style.display = 'none';
+          mobileMenuBtn.innerHTML = '☰';
+        }
       });
     });
   }
 
-  // Toast helper
+  // Toast Functionality
+  const toast = document.getElementById('floatingToast');
+  const toastMsg = document.getElementById('floatingToastMsg');
   function showToast(message, duration = 4000) {
-    const toast = document.getElementById('toastNotice');
-    const toastMsg = document.getElementById('toastMsg');
     if (!toast || !toastMsg) return;
-    
     toastMsg.textContent = message;
-    toast.classList.add('show');
-    
+    toast.classList.add('active');
     setTimeout(() => {
-      toast.classList.remove('show');
+      toast.classList.remove('active');
     }, duration);
   }
 
   // One-click Copy Email
-  const copyEmailBtns = document.querySelectorAll('.js-copy-email');
-  copyEmailBtns.forEach(btn => {
+  document.querySelectorAll('.js-copy-email').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       const email = 'avdheshky2002@gmail.com';
       navigator.clipboard.writeText(email).then(() => {
         showToast('✓ Email copied to clipboard: ' + email);
       }).catch(() => {
-        // Fallback
-        const textarea = document.createElement('textarea');
-        textarea.value = email;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
-        showToast('✓ Email copied to clipboard: ' + email);
+        showToast('✓ Email: ' + email);
       });
     });
   });
 
-  // Direct Contact Form Handler (CEO & Founder Direct Inquiry)
-  const contactForm = document.getElementById('contactForm');
+  // Interactive Surge Pricing Simulator in Cholonaa Section
+  const surgeSlider = document.getElementById('surgeSlider');
+  const surgeMultiplierDisplay = document.getElementById('surgeMultiplierDisplay');
+  const surgeDemandStatus = document.getElementById('surgeDemandStatus');
+  const surgeDriversOnline = document.getElementById('surgeDriversOnline');
+
+  if (surgeSlider && surgeMultiplierDisplay) {
+    surgeSlider.addEventListener('input', (e) => {
+      const val = parseFloat(e.target.value);
+      surgeMultiplierDisplay.textContent = `${val.toFixed(1)}x Surge`;
+      
+      if (val === 1.0) {
+        surgeDemandStatus.textContent = 'Normal Demand (Balanced)';
+        surgeDemandStatus.style.color = '#94a3b8';
+        surgeDriversOnline.textContent = 'High Driver Density (45 online)';
+        surgeMultiplierDisplay.style.color = '#38bdf8';
+        surgeMultiplierDisplay.style.background = 'rgba(56, 189, 248, 0.15)';
+      } else if (val <= 1.4) {
+        surgeDemandStatus.textContent = 'Moderate Surge (Rain / Rush Hour)';
+        surgeDemandStatus.style.color = '#34d399';
+        surgeDriversOnline.textContent = 'Medium Density (22 online)';
+        surgeMultiplierDisplay.style.color = '#34d399';
+        surgeMultiplierDisplay.style.background = 'rgba(16, 185, 129, 0.15)';
+      } else {
+        surgeDemandStatus.textContent = 'Critical Surge (Severe Deficit)';
+        surgeDemandStatus.style.color = '#f59e0b';
+        surgeDriversOnline.textContent = 'Low Driver Density (8 online)';
+        surgeMultiplierDisplay.style.color = '#f59e0b';
+        surgeMultiplierDisplay.style.background = 'rgba(245, 158, 11, 0.2)';
+      }
+    });
+  }
+
+  // Quick Inquiry Preset Pills for Founders
+  const quickPills = document.querySelectorAll('.quick-pill');
+  const messageInput = document.getElementById('senderMessage');
+  const projectTypeSelect = document.getElementById('projectTypeSelect');
+
+  const presetTemplates = {
+    mvp: {
+      type: "Full MVP / 0-to-1 Build",
+      text: "Hi Avdhesh, I'm a founder looking to build our MVP from scratch (web backend + mobile app). We want a robust architecture with quick time-to-market. Let's discuss scope and timeline."
+    },
+    mobility: {
+      type: "Mobility / Ride-Hailing Platform",
+      text: "Hi Avdhesh, saw your Cholonaa project with live rider app and surge engine! We need a custom mobility / dispatch app with real-time GPS tracking and dynamic fare logic."
+    },
+    saas: {
+      type: "Enterprise SaaS / HRM Platform",
+      text: "Hi Avdhesh, we're building an enterprise SaaS platform and need a lead developer with experience in multi-tenancy, AI APIs (like AWS Rekognition/OpenAI), and payment gateways."
+    },
+    consulting: {
+      type: "Freelance Sprint / Feature Sprint",
+      text: "Hi Avdhesh, looking to hire you for a dedicated sprint to architect high-performance APIs, optimize our complex database queries, and integrate key features."
+    }
+  };
+
+  quickPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      quickPills.forEach(p => p.classList.remove('selected'));
+      pill.classList.add('selected');
+
+      const key = pill.getAttribute('data-preset');
+      const preset = presetTemplates[key];
+      if (preset && messageInput && projectTypeSelect) {
+        messageInput.value = preset.text;
+        projectTypeSelect.value = preset.type;
+        messageInput.focus();
+        showToast('✓ Template pre-filled! You can edit or submit directly.');
+      }
+    });
+  });
+
+  // Direct Contact Form Submission
+  const contactForm = document.getElementById('founderContactForm');
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
       
       const name = document.getElementById('senderName')?.value.trim() || 'Founder / Client';
       const email = document.getElementById('senderEmail')?.value.trim() || '';
-      const projectType = document.getElementById('projectType')?.value || 'Freelance / Full-Scale Project';
-      const budget = document.getElementById('budgetRange')?.value || 'Negotiable';
+      const projectType = document.getElementById('projectTypeSelect')?.value || 'Freelance / Full Build';
+      const budget = document.getElementById('budgetSelect')?.value || 'Negotiable';
       const message = document.getElementById('senderMessage')?.value.trim() || '';
-      
-      const subject = encodeURIComponent(`Project Inquiry: ${projectType} from ${name}`);
+
+      const subject = `[Project Inquiry] ${projectType} from ${name}`;
       const bodyContent = 
-`Hi Avdhesh,
+`Hello Avdhesh,
 
-I came across your portfolio and would like to discuss working together.
+I reached out via your portfolio website regarding a prospective project.
 
---- INQUIRY DETAILS ---
-• Name / Company: ${name}
-• Contact Email: ${email}
+══════════════════════════════════════════════════
+INQUIRY DETAILS:
+• Name / Entity: ${name}
+• Email: ${email}
 • Project Scope: ${projectType}
-• Estimated Budget / Timeline: ${budget}
+• Budget / Timeline: ${budget}
+══════════════════════════════════════════════════
 
---- PROJECT OVERVIEW & GOALS ---
+PROJECT OVERVIEW:
 ${message}
 
-Looking forward to connecting with you.
+Looking forward to your response.
 
 Best regards,
 ${name}`;
 
-      const mailtoUrl = `mailto:avdheshky2002@gmail.com?subject=${subject}&body=${encodeURIComponent(bodyContent)}`;
-      
-      // Copy formatted pitch to clipboard as backup
+      const mailtoUrl = `mailto:avdheshky2002@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyContent)}`;
+
+      // Save to clipboard as safe backup
       navigator.clipboard.writeText(bodyContent).catch(() => {});
-      
-      showToast('🚀 Opening your email app! (Draft details also copied to clipboard)');
-      
-      // Trigger client
+
+      showToast('🚀 Launching your email client... (Draft details also copied to clipboard)');
+
       setTimeout(() => {
         window.location.href = mailtoUrl;
       }, 350);
@@ -102,18 +176,18 @@ ${name}`;
   }
 
   // Filter Projects by Category
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const projectCards = document.querySelectorAll('.project-card[data-cat]');
-  
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      
-      const cat = btn.getAttribute('data-filter');
+  const filterChips = document.querySelectorAll('.filter-chip');
+  const projectCards = document.querySelectorAll('.portfolio-card-item');
+
+  filterChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      filterChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+
+      const filter = chip.getAttribute('data-filter');
       projectCards.forEach(card => {
-        const cardCat = card.getAttribute('data-cat');
-        if (cat === 'all' || cardCat.includes(cat)) {
+        const cat = card.getAttribute('data-cat') || '';
+        if (filter === 'all' || cat.includes(filter)) {
           card.style.display = 'flex';
         } else {
           card.style.display = 'none';
@@ -122,100 +196,93 @@ ${name}`;
     });
   });
 
-  // Modal Case Studies Handler
-  const modalOverlay = document.getElementById('modalOverlay');
-  const modalContent = document.getElementById('modalContent');
-  const modalCloseBtn = document.getElementById('modalCloseBtn');
-  
-  const caseStudiesData = {
+  // Deep-Dive Modal
+  const modalBackdrop = document.getElementById('modalBackdrop');
+  const modalInnerContent = document.getElementById('modalInnerContent');
+  const modalClose = document.getElementById('modalCloseBtn');
+
+  const caseData = {
     cholonaa: {
-      title: "Cholonaa — Complete Ride-Hailing Mobility Ecosystem",
-      badge: "🟢 Rider App Live on Play Store | 🟡 Driver App Pending Staging QA",
-      content: `
-        <div style="margin-bottom: 20px;">
-          <img src="assets/cholonaa.jpg" alt="Cholonaa Platform" style="width: 100%; border-radius: 12px; margin-bottom: 16px; border: 1px solid rgba(255,255,255,0.1);" />
-          <h4 style="color: #38bdf8; font-size: 1.15rem; margin-bottom: 10px;">Executive Summary & Architecture</h4>
-          <p style="color: #94a3b8; font-size: 0.95rem; line-height: 1.7; margin-bottom: 16px;">
-            Cholonaa is an on-demand mobility platform engineered to handle real-time geospatial routing, ride matchmaking, and automated dynamic surge pricing across dense urban sectors. Built entirely from scratch, the architecture encompasses high-concurrency Laravel REST APIs, MySQL database schemas, and Flutter cross-platform mobile apps for riders and driver-partners.
-          </p>
+      badge: "🟢 RIDER APP LIVE · 🟡 DRIVER APP IN QA · ⚡ HIGH SCALE DISPATCH",
+      title: "Cholonaa — High-Concurrency Ride Hailing Platform",
+      body: `
+        <div style="margin-top: 14px;">
+          <img src="assets/cholonaa.jpg" alt="Cholonaa Platform" style="width: 100%; border-radius: 14px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 10px 30px rgba(0,0,0,0.8);" />
           
-          <h4 style="color: #10b981; font-size: 1.05rem; margin-bottom: 8px;">Key Engineering Milestones Delivered:</h4>
-          <ul style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.8; padding-left: 20px; margin-bottom: 18px;">
-            <li><strong>Dynamic Polygon Zone Surge Engine:</strong> Engineered zone-based algorithms that calculate supply-demand elasticity and automatically apply multiplier coefficients (1.2x – 2.0x) during peak hours.</li>
-            <li><strong>Rider App (Production Live):</strong> Live GPS tracking, interactive fare estimator, vehicle type selector (Bike, Auto, Cab), and trip status notifications.</li>
-            <li><strong>Driver Partner App (QA Pending):</strong> Automated dispatch queue with timed ride accept/reject cards, turnaround routing, and instant earnings dashboard.</li>
-            <li><strong>High-Throughput Backend:</strong> Sanctum authentication, geohash spatial indexing, optimized queries for fast driver lookup within radius, and automated fare calculation.</li>
+          <h3 style="color: #38bdf8; font-size: 1.25rem; margin-bottom: 10px;">Platform Architectural Blueprint</h3>
+          <p style="color: #94a3b8; font-size: 0.96rem; line-height: 1.75; margin-bottom: 20px;">
+            Engineered the complete multi-sided mobility network from zero to production. The platform connects urban riders with nearby drivers in sub-second latency, computing real-time surge pricing across dynamic geo-zones and handling trip transitions safely with zero double-booking.
+          </p>
+
+          <h4 style="color: #34d399; font-size: 1.05rem; margin-bottom: 8px;">Key Technical Innovations:</h4>
+          <ul style="color: #cbd5e1; font-size: 0.92rem; line-height: 1.8; padding-left: 20px; margin-bottom: 24px;">
+            <li><strong>Polygon Zone Surge Engine:</strong> Dynamic elasticity algorithm analyzing driver density against rider requests within geohash clusters, recalculating surge multipliers automatically every 60 seconds.</li>
+            <li><strong>Live Rider App (Production Play Store):</strong> Real-time polyline routes, multi-tier ride calculation (Bike, Auto, Cab), coupon deductions, and live status stream.</li>
+            <li><strong>Driver Partner App (QA Pending):</strong> Sound/vibration broadcast for new trip requests, 15-second acceptance timer with automatic cascade to subsequent drivers, and live earnings ledger.</li>
+            <li><strong>High-Throughput Backend:</strong> Laravel Sanctum, MySQL geospatial indexing, and background queue workers ensuring immediate response times.</li>
           </ul>
 
-          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px;">
-            <a href="#contact" onclick="document.getElementById('modalOverlay').classList.remove('open')" class="btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">
-              Discuss Mobility / Ride-Hailing Project
-            </a>
-          </div>
+          <a href="#contact" onclick="document.getElementById('modalBackdrop').classList.remove('active')" class="btn-linear-primary" style="display: inline-block;">
+            Discuss Mobility App Architecture
+          </a>
         </div>
       `
     },
     hrm: {
-      title: "Enterprise Multi-Tenant HRM SaaS (500+ Active Users)",
-      badge: "⚡ 80%+ Built Independently | Production Enterprise System",
-      content: `
-        <div style="margin-bottom: 20px;">
-          <img src="hrm.jpeg" alt="HRM Dashboard" style="width: 100%; border-radius: 12px; margin-bottom: 16px; border: 1px solid rgba(255,255,255,0.1);" />
-          <h4 style="color: #38bdf8; font-size: 1.15rem; margin-bottom: 10px;">Enterprise Scalability & AI Automation</h4>
-          <p style="color: #94a3b8; font-size: 0.95rem; line-height: 1.7; margin-bottom: 16px;">
-            Engineered an end-to-end Human Resource Management platform supporting over 500 enterprise personnel. Replaced traditional legacy spreadsheet tracking with real-time biometric synchronization, computer vision face verification, and GPT-driven natural language employee helpdesk.
+      badge: "⚡ 80%+ INDEPENDENTLY BUILT · 500+ USERS · PRODUCTION ENTERPRISE",
+      title: "Enterprise Multi-Tenant HRM SaaS Platform",
+      body: `
+        <div style="margin-top: 14px;">
+          <img src="hrm.jpeg" alt="HRM Dashboard" style="width: 100%; border-radius: 14px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 10px 30px rgba(0,0,0,0.8);" />
+          
+          <h3 style="color: #38bdf8; font-size: 1.25rem; margin-bottom: 10px;">Enterprise AI & Automated Payroll System</h3>
+          <p style="color: #94a3b8; font-size: 0.96rem; line-height: 1.75; margin-bottom: 20px;">
+            Independently designed and built more than 80% of this multi-tenant workforce management platform. Solved attendance bottleneck and manual data entry by deploying automated facial recognition and hardware device sync.
           </p>
 
-          <h4 style="color: #10b981; font-size: 1.05rem; margin-bottom: 8px;">Key System Capabilities:</h4>
-          <ul style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.8; padding-left: 20px; margin-bottom: 18px;">
-            <li><strong>AWS Rekognition AI Face Attendance:</strong> Replaced physical queues with seamless camera enrollment and facial recognition, achieving 98% accuracy and cutting manual HR time by 85%.</li>
-            <li><strong>Hardware Biometrics Integration:</strong> Connected ZKTeco attendance devices directly with automated MySQL sync scripts running on background daemons.</li>
-            <li><strong>GPT-Powered AI Employee Chatbot:</strong> Integrated OpenAI API allowing staff to query PTO, salary breakdown, and policy docs naturally.</li>
-            <li><strong>Fintech & Communication:</strong> Automated payroll distribution via Cashfree API, S3 cloud document archival, and WhatsApp notification dispatch.</li>
+          <h4 style="color: #34d399; font-size: 1.05rem; margin-bottom: 8px;">Core Enterprise Capabilities:</h4>
+          <ul style="color: #cbd5e1; font-size: 0.92rem; line-height: 1.8; padding-left: 20px; margin-bottom: 24px;">
+            <li><strong>AWS Rekognition AI Face Biometrics:</strong> 98% accuracy in real-time facial attendance check-in, decreasing HR manual attendance time by 85%.</li>
+            <li><strong>OpenAI GPT Assistant:</strong> Internal LLM chatbot answering questions regarding salary breakups, leave policies, and official holidays.</li>
+            <li><strong>ZKTeco Biometric Sync:</strong> Automated daemons syncing fingerprint records with MySQL without transaction locks.</li>
+            <li><strong>Cashfree & WhatsApp:</strong> One-click automated salary payout pipeline with automated payslip generation and WhatsApp alert dispatches.</li>
           </ul>
 
-          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px;">
-            <a href="#contact" onclick="document.getElementById('modalOverlay').classList.remove('open')" class="btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">
-              Hire for Enterprise / SaaS Development
-            </a>
-          </div>
+          <a href="#contact" onclick="document.getElementById('modalBackdrop').classList.remove('active')" class="btn-linear-primary" style="display: inline-block;">
+            Build Custom Enterprise SaaS
+          </a>
         </div>
       `
     }
   };
 
-  document.querySelectorAll('[data-case]').forEach(btn => {
+  document.querySelectorAll('[data-open-case]').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      const caseKey = btn.getAttribute('data-case');
-      const item = caseStudiesData[caseKey];
-      if (!item || !modalContent) return;
-      
-      modalContent.innerHTML = `
-        <span class="badge-live-prod" style="margin-bottom: 12px; display: inline-block;">${item.badge}</span>
-        <h2 style="color: #fff; font-size: 1.8rem; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em;">${item.title}</h2>
-        ${item.content}
+      const key = btn.getAttribute('data-open-case');
+      const item = caseData[key];
+      if (!item || !modalInnerContent || !modalBackdrop) return;
+
+      modalInnerContent.innerHTML = `
+        <span class="badge-live-store" style="margin-bottom: 12px; display: inline-block;">${item.badge}</span>
+        <h2 style="font-family: 'Outfit', sans-serif; color: #fff; font-size: 2rem; font-weight: 800; letter-spacing: -0.02em;">${item.title}</h2>
+        ${item.body}
       `;
-      modalOverlay.classList.add('open');
+      modalBackdrop.classList.add('active');
     });
   });
 
-  if (modalCloseBtn && modalOverlay) {
-    modalCloseBtn.addEventListener('click', () => {
-      modalOverlay.classList.remove('open');
+  if (modalClose && modalBackdrop) {
+    modalClose.addEventListener('click', () => {
+      modalBackdrop.classList.remove('active');
     });
-    
-    modalOverlay.addEventListener('click', (e) => {
-      if (e.target === modalOverlay) {
-        modalOverlay.classList.remove('open');
+    modalBackdrop.addEventListener('click', (e) => {
+      if (e.target === modalBackdrop) {
+        modalBackdrop.classList.remove('active');
       }
     });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') modalBackdrop.classList.remove('active');
+    });
   }
-
-  // Escape key to close modal
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modalOverlay) {
-      modalOverlay.classList.remove('open');
-    }
-  });
 });
