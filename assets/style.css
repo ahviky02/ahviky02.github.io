@@ -1276,3 +1276,12 @@ button {
   .contact-epic-box { padding: 32px 20px; }
   .flagship-details-side, .hrm-info-pane { padding: 28px 20px; }
 }
+
+/* Spinner Animation */
+.spin {
+  animation: spinIcon 0.9s linear infinite;
+}
+@keyframes spinIcon {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
